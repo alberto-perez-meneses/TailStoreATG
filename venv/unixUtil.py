@@ -17,20 +17,10 @@ def tail(file, n=1, bs=1024):
     f.close()
     return lines
 
-def listFiles(path):
-    files = []
-    # r=root, d=directories, f = files
-    for r, d, f in os.walk(path):
-        for file in f:
-            if '.txt' in file:
-                files.append(os.path.join(r, file))
 
+def ListFiles(path,depth):
+    files = [f for f in glob.glob(path + "*/weblogic/*.out")]
     for f in files:
-        print(f)
-        print (tail(f,20))
+        for lines in tail(f, depth):
+            print f+" #### "+lines
 
-def ListFiles(path):
-    files = [f for f in glob.glob(path + "*/*.txt")]
-    for f in files:
-        print(f)
-        print (tail(f, 20))
